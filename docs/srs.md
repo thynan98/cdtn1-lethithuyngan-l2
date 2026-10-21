@@ -6,7 +6,7 @@ Hệ thống quản lý phiếu bảo hành – Mekong Mobile (luồng L2)**
 | Sinh viên     | Lê Thị Thùy Ngân - 2374802010328 |
 | Track         | SE – Công nghệ Phần mềm          |
 | Học phần      | Chuyên đề Tốt nghiệp 1           |
-| Phiên bản     | 0.2                              |
+| Phiên bản     | 1.1                              |
 
 # 1. Giới thiệu
 
@@ -48,10 +48,12 @@ Mỗi khái niệm chỉ dùng một tên duy nhất trong toàn bộ tài liệ
 
 ## 2.1 Người dùng (actor)
 
-| **Actor**           | **Vai trò**                                                                                                                    |
-|---------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| Nhân viên tiếp nhận | Tạo phiếu, phân loại, gán kỹ thuật viên, cập nhật trạng thái, xem hạn cam kết, tra cứu khách hàng, xem và lọc danh sách phiếu. |
-| Quản lý trung tâm   | Xem danh sách phiếu, lọc theo trạng thái hoặc quá hạn.                                                                         |
+| **Actor**           | **Vai trò**                                                                                                                    | **Không được làm**                                                                                              |
+|---------------------|--------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Nhân viên tiếp nhận | Tạo phiếu, phân loại, gán kỹ thuật viên, cập nhật trạng thái, xem hạn cam kết, tra cứu khách hàng, xem và lọc danh sách phiếu. | Không xóa phiếu, hồ sơ khách hay kỹ thuật viên (QT-13); không quay lui trạng thái phiếu.                        |
+| Quản lý trung tâm   | Xem danh sách phiếu, lọc theo trạng thái hoặc quá hạn.                                                                         | Không tạo phiếu, không gán hoặc đổi kỹ thuật viên, không cập nhật trạng thái phiếu.                             |
+
+*Ghi chú: Bản này chưa có đăng nhập, nên cột "Không được làm" là phạm vi trách nhiệm nghiệp vụ, chưa khóa bằng phần mềm. Đăng nhập và phân quyền (QT-14, QT-15) ngoài phạm vi, xem mục 1.2.*
 
 ## 2.2 Giả định
 
