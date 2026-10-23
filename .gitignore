@@ -1,9 +1,5 @@
-node_modules/
-dist/
-build/
-target/
-.env
-*.log
-coverage/
-.idea/
-.vscode/settings.json
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
