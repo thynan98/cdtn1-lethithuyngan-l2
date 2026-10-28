@@ -2,7 +2,7 @@
 
 Chạy:  python -m seeds.seed
 
-Nguồn: bộ dữ liệu của thầy (xem README, mục Dữ liệu mẫu). Việc quy đổi sang thiết kế của em:
+Nguồn: bộ dữ liệu của Đề bài (xem README, mục Dữ liệu mẫu). Việc quy đổi sang thiết kế của Sinh viên:
   - 5 trạng thái lịch sử -> 3 trạng thái (MOI / DANG_XU_LY / HOAN_TAT), xem STATUS_MAP;
   - hạn cam kết tính lại theo QT-04 (bỏ Chủ nhật) thay cho giờ lịch trong tệp gốc;
   - số điện thoại chuẩn hóa theo QT-01, QT-02; khách trùng số điện thoại chỉ giữ một hồ sơ.

@@ -1,4 +1,4 @@
-"""Tạo bản mẫu nhỏ trong data/sample/ từ bộ dữ liệu đầy đủ của thầy (đặt ở data/raw/).
+"""Tạo bản mẫu nhỏ trong data/sample/ từ bộ dữ liệu đầy đủ của Đề bài (đặt ở data/raw/).
 
 Chạy:  python tools/make_sample.py
 Quy tắc chọn (cố định nên chạy lại ra đúng cùng bản mẫu):

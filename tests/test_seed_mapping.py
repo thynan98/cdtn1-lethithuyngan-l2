@@ -1,4 +1,4 @@
-"""Kiểm thử phần quy đổi dữ liệu gốc của thầy sang thiết kế của em (hàm thuần, không cần CSDL)."""
+"""Kiểm thử phần quy đổi dữ liệu gốc của Đề bài sang thiết kế của Sinh viên (hàm thuần, không cần CSDL)."""
 from datetime import datetime
 
 from seeds.seed import clean_name, collapse_status_log, map_status, parse_time, read_csv
