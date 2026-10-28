@@ -59,7 +59,20 @@ COLLECTIONS = {
             ([("ticket_id", 1)], True),
             ([("ticket_code", 1)], True),
             ([("status", 1), ("due_date", 1)], False),                # NFR-04
+            ([("customer_id", 1)], False),                            # tra cứu theo khách (US7)
         ],
+    },
+    "user": {                                                         # tài khoản đăng nhập (TD-05)
+        "required": ["user_id", "username", "password_hash", "full_name", "role", "is_active"],
+        "properties": {
+            "user_id": {"bsonType": INT},
+            "username": {"bsonType": "string", "maxLength": 50},
+            "password_hash": {"bsonType": "string"},                  # KHÔNG lưu mật khẩu chữ thường
+            "full_name": {"bsonType": "string", "maxLength": 120},
+            "role": {"enum": ["NHAN_VIEN", "QUAN_LY"]},
+            "is_active": {"bsonType": "bool"},
+        },
+        "indexes": [([("user_id", 1)], True), ([("username", 1)], True)],
     },
     "ticket_status_log": {
         "required": ["log_id", "ticket_id", "to_status", "changed_at"],
