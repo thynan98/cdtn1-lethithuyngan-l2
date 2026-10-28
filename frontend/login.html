@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập - Quản lý phiếu bảo hành</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="brand">
+        <img class="brand-logo" src="img/logo.svg" alt="Logo Mekong Mobile">
+        <div><div class="brand-name">Mekong Mobile</div><div class="brand-sub">QUẢN LÝ PHIẾU BẢO HÀNH</div></div>
+      </div>
+      <h1>Đăng nhập</h1>
+      <div id="login-error" class="alert alert-error hidden" role="alert"></div>
+      <form id="login-form" novalidate>
+        <div class="field" id="f-username"><label for="username">Tên đăng nhập</label><input id="username" autocomplete="username"><div class="field-error"></div></div>
+        <div class="field" id="f-password"><label for="password">Mật khẩu</label><input id="password" type="password" autocomplete="current-password"><div class="field-error"></div></div>
+        <button class="btn" id="login-btn" style="width:100%">Đăng nhập</button>
+      </form>
+    </div>
+  </div>
+  <script type="module" src="js/pages/login.js"></script>
+</body>
+</html>
