@@ -2,7 +2,7 @@
 
 ## 1. Quy ước chung
 
-- Định dạng trao đổi: JSON, mã hóa UTF-8. Header bắt buộc: `Content-Type: application/json`.
+- Định dạng trao đổi: JSON, mã hóa UTF-8. Header bắt buộc: `Content-Type: application/json`. Mọi endpoint, trừ `POST /api/auth/login` và `GET /health`, còn cần header `Authorization: Bearer <token>` (xem mục 5).
 - Tên trường dùng `snake_case`, khớp tên trường trong `docs/data-model.md` (MongoDB). Các `*_id` là số nguyên tự tăng do hệ thống cấp, không dùng ObjectId. Ngoại lệ: trong request tạo phiếu, `customer_name` và `customer_phone` được lưu vào `customer.full_name` và `customer.phone`.
 - Thời gian dùng chuẩn ISO 8601 kèm múi giờ, ví dụ `2026-10-05T14:30:00+07:00`.
 - Phân trang cho danh sách: tham số `page` (bắt đầu từ 1) và `size` (mặc định 20, tối đa 100). Response kèm `total`.
@@ -22,6 +22,7 @@
 - Phiếu "quá hạn" khi chưa `HOAN_TAT` và thời điểm hiện tại lớn hơn `due_date`. Phiếu "sắp đến hạn" khi chưa `HOAN_TAT`, chưa quá hạn và còn ≤ 12 giờ đến `due_date`. Hai giá trị này do hệ thống tự tính khi trả dữ liệu, không lưu như một trạng thái.
 - Phiếu đã `HOAN_TAT` thì không gán hoặc đổi kỹ thuật viên.
 - Khách hàng được nhận diện bằng số điện thoại: nếu số điện thoại đã có thì phiếu gắn vào hồ sơ khách đó, nếu chưa có thì hệ thống tạo hồ sơ khách mới.
+- Xóa phiếu là xóa mềm (QT-13): phiếu có `deleted_at` không còn xuất hiện trong danh sách hay chi tiết, nhưng dữ liệu vẫn được giữ.
 - Ghi nhận thiết bị và kiểm tra bảo hành nằm ngoài phạm vi, xem mục 1.2 của SRS.
 
 ## 3. Danh sách endpoint
@@ -37,6 +38,11 @@
 | GET | `/api/tickets/{id}` | Xem phiếu kèm hạn cam kết, cảnh báo, lịch sử trạng thái và lịch sử đổi kỹ thuật viên | US5 | FR-06 |
 | GET | `/api/tickets?status=&overdue=&page=&size=` | Danh sách phiếu, có lọc theo trạng thái hoặc quá hạn | US6 | FR-08, FR-09 |
 | GET | `/api/customers?phone={phone}` | Tra cứu khách hàng theo số điện thoại | US7 | FR-07 |
+| POST | `/api/auth/login` | Đăng nhập | Mở rộng (TD-05) | – |
+| GET | `/api/auth/me` | Thông tin người đang đăng nhập | Mở rộng (TD-05) | – |
+| DELETE | `/api/tickets/{id}` | Xóa mềm phiếu (chỉ QUAN_LY) | Mở rộng (TD-06) | – |
+| POST, PATCH, DELETE | `/api/technicians`, `/api/technicians/{id}` | Thêm, sửa, ngừng hoạt động kỹ thuật viên (chỉ QUAN_LY) | Mở rộng (TD-06) | – |
+| GET | `/api/overview` | Tổng quan: số phiếu theo trạng thái, quá hạn, sắp đến hạn, phiếu cần chú ý | Mở rộng (TD-08) | – |
 
 Chi tiết bên dưới chỉ viết cho endpoint của các story MUST (US1, US3, US4).
 
@@ -190,12 +196,46 @@ Truy vết: US4 (GWT7, GWT8), FR-05.
 
 ## 5. Xác thực và phân quyền
 
-Không áp dụng ở BT1. Đăng nhập và phân quyền nằm ngoài phạm vi (xem mục 1.2 của SRS).
+### 5.1 Xác thực
+
+Từ BT2 hệ thống có đăng nhập (TD-05). Mọi endpoint, trừ `POST /api/auth/login` và `GET /health`, cần header `Authorization: Bearer <token>`. Thiếu hoặc sai token trả 401 `UNAUTHORIZED`.
+
+| Endpoint | Mô tả | Thành công | Lỗi thường gặp |
+|---|---|---|---|
+| POST `/api/auth/login` | body `{username, password}` | 200 `{access_token, token_type, expires_in, user}` | 400 thiếu trường, 401 `INVALID_CREDENTIALS` |
+| GET `/api/auth/me` | thông tin người đang đăng nhập | 200 | 401 `UNAUTHORIZED` |
+
+### 5.2 Quyền theo vai trò
+
+Đúng token nhưng vai trò không có quyền trả 403 `FORBIDDEN`.
+
+| Việc | NHAN_VIEN | QUAN_LY |
+|---|---|---|
+| Xem phiếu, khách hàng, kỹ thuật viên, tổng quan | có | có |
+| Tạo phiếu, phân loại, gán/đổi kỹ thuật viên, đổi trạng thái | có | không (403) |
+| Xóa (ẩn) phiếu | không (403) | có |
+| Thêm, sửa, ngừng kỹ thuật viên | không (403) | có |
+
+### 5.3 Bảng mã lỗi
+
+| Mã lỗi | HTTP | Khi nào xảy ra |
+|---|---|---|
+| `REQUIRED_FIELD_MISSING` | 400 | Thiếu trường bắt buộc |
+| `INVALID_FORMAT` | 400 | Sai định dạng hoặc giá trị không hợp lệ |
+| `UNAUTHORIZED` | 401 | Thiếu, sai hoặc hết hạn token |
+| `INVALID_CREDENTIALS` | 401 | Sai tên đăng nhập hoặc mật khẩu |
+| `FORBIDDEN` | 403 | Vai trò không có quyền thực hiện |
+| `NOT_FOUND` | 404 | Không tìm thấy phiếu, kỹ thuật viên, khách hàng hoặc loại lỗi |
+| `INVALID_TRANSITION` | 409 | Chuyển trạng thái sai thứ tự |
+| `TICKET_CLOSED` | 409 | Phiếu đã hoàn tất, không gán hoặc đổi kỹ thuật viên |
+| `DUPLICATE_CODE` | 409 | Mã kỹ thuật viên đã tồn tại |
+| `DB_UNAVAILABLE` | 503 | Không truy cập được cơ sở dữ liệu |
+| `INTERNAL_ERROR` | 500 | Lỗi không dự kiến; không lộ chi tiết kỹ thuật |
 
 ## 6. Tự kiểm trước khi nộp
 
-- [x] Mỗi endpoint nối được về ít nhất một User Story trong bảng truy vết của SRS.
+- [x] Mỗi endpoint nối được về ít nhất một User Story trong bảng truy vết của SRS, trừ các endpoint mở rộng đã ghi TD-05, TD-06, TD-08 trong bảng mục 3.
 - [x] Mỗi endpoint chi tiết có ≥ 1 response thành công và ≥ 2 response lỗi.
-- [x] Mọi trường trong request và response đều có trong ERD (`docs/data-model.md`).
-- [x] Không có endpoint nào không phục vụ User Story nào.
-- [x] Quy tắc QT-01, QT-02, QT-04, QT-06 đã xuất hiện trong mục 2, bảng validation hoặc mã lỗi.
+- [x] Mọi trường trong request và response đều có trong ERD (`docs/data-model.md`, đã bổ sung `user`, `deleted_at`, `is_active`).
+- [x] Mã lỗi 401, 403, 503 đã có trong bảng mã lỗi (mục 5.3).
+- [x] Quy tắc QT-01, QT-02, QT-04, QT-06, QT-13 đã xuất hiện trong mục 2, bảng validation hoặc mã lỗi.

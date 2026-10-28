@@ -12,6 +12,7 @@ Sinh viên: Lê Thị Thùy Ngân – 2374802010328 – Track SE
 | `ticket` | Phiếu bảo hành | FR-01, FR-02, FR-05, FR-06, FR-08, FR-09 |
 | `ticket_status_log` | Lịch sử chuyển trạng thái | FR-05 (US4), QT-06 |
 | `ticket_assignment_log` | Lịch sử đổi kỹ thuật viên | FR-04 (US3, GWT5) |
+| `user` | Tài khoản đăng nhập của nhân viên tiếp nhận và quản lý | TD-05 (đăng nhập, phân quyền) |
 
 ## 2. Chi tiết từng thực thể
 
@@ -31,7 +32,7 @@ Sinh viên: Lê Thị Thùy Ngân – 2374802010328 – Track SE
 | technician_id | BIGINT | PK | |
 | technician_code | VARCHAR(20) | NOT NULL, UNIQUE | |
 | full_name | VARCHAR(120) | NOT NULL | |
-| is_active | BOOLEAN | NOT NULL | |
+| is_active | BOOLEAN | NOT NULL | false = đã ngừng hoạt động (xóa mềm), không còn trong danh sách chọn |
 
 **issue_category**
 
@@ -56,6 +57,7 @@ Sinh viên: Lê Thị Thùy Ngân – 2374802010328 – Track SE
 | status | VARCHAR(12) | NOT NULL | MOI / DANG_XU_LY / HOAN_TAT |
 | received_at | TIMESTAMP | NOT NULL | |
 | due_date | TIMESTAMP | NOT NULL | sinh theo QT-04 (24/72/120 giờ, bỏ Chủ nhật) |
+| deleted_at | TIMESTAMP | NULL | xóa mềm (QT-13): có giá trị thì phiếu bị ẩn khỏi danh sách, dữ liệu vẫn giữ |
 
 **ticket_status_log**
 
@@ -77,6 +79,17 @@ Sinh viên: Lê Thị Thùy Ngân – 2374802010328 – Track SE
 | to_technician_id | BIGINT | FK → technician, NOT NULL | |
 | changed_at | TIMESTAMP | NOT NULL | |
 
+**user**
+
+| Cột | Kiểu | Ràng buộc | Ghi chú |
+|---|---|---|---|
+| user_id | BIGINT | PK | |
+| username | VARCHAR(50) | NOT NULL, UNIQUE | |
+| password_hash | VARCHAR | NOT NULL | chỉ lưu bản băm (PBKDF2-SHA256), không lưu mật khẩu chữ thường |
+| full_name | VARCHAR(120) | NOT NULL | |
+| role | VARCHAR(10) | NOT NULL | NHAN_VIEN / QUAN_LY |
+| is_active | BOOLEAN | NOT NULL | |
+
 ## 3. Quan hệ
 
 - Một `customer` có không hoặc nhiều `ticket`; mỗi `ticket` thuộc đúng một `customer`.
@@ -84,6 +97,7 @@ Sinh viên: Lê Thị Thùy Ngân – 2374802010328 – Track SE
 - Một `issue_category` gắn với không hoặc nhiều `ticket`; mỗi `ticket` có không hoặc một `issue_category`.
 - Một `ticket` có không hoặc nhiều dòng trong `ticket_status_log` và `ticket_assignment_log`.
 - `ticket_assignment_log` tham chiếu `technician` hai lần (người cũ, người mới).
+- `user` là bảng độc lập, chỉ dùng để đăng nhập và phân quyền; không liên kết với `technician`.
 
 ## 4. Kiểm tra chuẩn 3NF
 
@@ -101,9 +115,12 @@ Sinh viên: Lê Thị Thùy Ngân – 2374802010328 – Track SE
 | `ticket(status, due_date)` | NFR-04, US6 | lọc danh sách phiếu theo trạng thái và quá hạn |
 | `ticket_status_log(ticket_id, changed_at)` | QT-06 | xem lịch sử chuyển trạng thái theo phiếu |
 | `ticket_assignment_log(ticket_id, changed_at)` | GWT5 | xem lịch sử đổi kỹ thuật viên |
+| `user(username)` UNIQUE | TD-05 | không trùng tên đăng nhập |
+| `ticket(customer_id)` | US7 | tra cứu các phiếu của một khách |
 
 ## 6. Ánh xạ sang MongoDB
 
+Cấu trúc thực tế được dựng bằng `migrations/migrate.py` (nguồn duy nhất); phần dưới chỉ là khung minh họa.
 Mỗi thực thể thành một collection riêng (không lồng vào nhau); khóa ngoại thành trường số nguyên tham chiếu tới khóa `*_id` của collection kia; việc kiểm tra tham chiếu hợp lệ do lớp nghiệp vụ làm, vì MongoDB không tự kiểm tra khóa ngoại.
 
 | Khái niệm quan hệ | Trong MongoDB |
@@ -146,25 +163,28 @@ db.createCollection("ticket", {
       priority:      { enum: ["CAO", "TRUNG_BINH", "THAP"] },
       status:        { enum: ["MOI", "DANG_XU_LY", "HOAN_TAT"] },        // QT-06
       received_at:   { bsonType: "date" },
-      due_date:      { bsonType: "date" }                                // QT-04
+      due_date:      { bsonType: "date" },                              // QT-04
+      deleted_at:    { bsonType: ["date", "null"] }                      // xóa mềm (QT-13)
     }
   }}
 });
 db.ticket.createIndex({ ticket_id: 1 }, { unique: true });
 db.ticket.createIndex({ ticket_code: 1 }, { unique: true });           // NFR-03
 db.ticket.createIndex({ status: 1, due_date: 1 });                     // NFR-04
+db.ticket.createIndex({ customer_id: 1 });                             // US7
 
 db.technician.createIndex({ technician_code: 1 }, { unique: true });
 db.issue_category.createIndex({ category_code: 1 }, { unique: true });
 db.ticket_status_log.createIndex({ ticket_id: 1, changed_at: 1 });
 db.ticket_assignment_log.createIndex({ ticket_id: 1, changed_at: 1 });
+db.user.createIndex({ username: 1 }, { unique: true });                // TD-05
 ```
 
-(Các collection `technician`, `issue_category`, `ticket_status_log`, `ticket_assignment_log` khai báo validator tương tự theo bảng ở mục 2.)
+(Các collection `technician`, `issue_category`, `ticket_status_log`, `ticket_assignment_log` và `user` khai báo validator tương tự theo bảng ở mục 2.)
 
 ## 7. Phụ lục: SQL DDL skeleton (PostgreSQL)
 
-Dùng khi cần nộp đúng dạng SQL DDL. Đây là bản thiết kế logic, chưa chạy.
+Bản thiết kế logic của BT1, không dùng để dựng hệ thống. Từ BT2, cơ sở dữ liệu được dựng bằng `migrations/migrate.py` (xem TD-04); phụ lục này chưa có bảng `user` và cột `deleted_at`.
 
 ```sql
 CREATE TABLE customer (

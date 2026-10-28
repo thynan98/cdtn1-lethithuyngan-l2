@@ -6,7 +6,7 @@ Hệ thống quản lý phiếu bảo hành – Mekong Mobile (luồng L2)**
 | Sinh viên     | Lê Thị Thùy Ngân - 2374802010328 |
 | Track         | SE – Công nghệ Phần mềm          |
 | Học phần      | Chuyên đề Tốt nghiệp 1           |
-| Phiên bản     | 1.1                              |
+| Phiên bản     | 1.2                              |
 
 # 1. Giới thiệu
 
@@ -20,7 +20,7 @@ Hệ thống quản lý phiếu bảo hành – Mekong Mobile (luồng L2)**
 
 ## 1.2 Ngoài phạm vi
 
-- Đăng nhập và phân quyền người dùng (QT-14, QT-15).
+- Đăng nhập và phân quyền người dùng (QT-14, QT-15). (Ở BT2 em đã làm đăng nhập và phân quyền hai vai trò, xem TD-05 trong thay-doi-thiet-ke.md.)
 
 - Thiết bị, số serial/IMEI và kiểm tra bảo hành (QT-03, QT-05); phân biệt nhiều trung tâm bảo hành (hệ thống dùng một danh sách phiếu chung).
 
@@ -53,11 +53,11 @@ Mỗi khái niệm chỉ dùng một tên duy nhất trong toàn bộ tài liệ
 | Nhân viên tiếp nhận | Tạo phiếu, phân loại, gán kỹ thuật viên, cập nhật trạng thái, xem hạn cam kết, tra cứu khách hàng, xem và lọc danh sách phiếu. | Không xóa phiếu, hồ sơ khách hay kỹ thuật viên (QT-13); không quay lui trạng thái phiếu.                        |
 | Quản lý trung tâm   | Xem danh sách phiếu, lọc theo trạng thái hoặc quá hạn.                                                                         | Không tạo phiếu, không gán hoặc đổi kỹ thuật viên, không cập nhật trạng thái phiếu.                             |
 
-*Ghi chú: Bản này chưa có đăng nhập, nên cột "Không được làm" là phạm vi trách nhiệm nghiệp vụ, chưa khóa bằng phần mềm. Đăng nhập và phân quyền (QT-14, QT-15) ngoài phạm vi, xem mục 1.2.*
+*Ghi chú: Ở bản BT1 chưa có đăng nhập, nên cột "Không được làm" chỉ là phạm vi trách nhiệm nghiệp vụ. Từ BT2, quyền này đã được khóa bằng phần mềm, xem TD-05 và TD-06 trong thay-doi-thiet-ke.md. Ở BT2, Quản lý còn xem màn Tổng quan, xóa mềm phiếu và quản lý kỹ thuật viên, xem TD-06 và TD-08.*
 
 ## 2.2 Giả định
 
-Phiếu chỉ có ba trạng thái Mới tiếp nhận → Đang xử lý → Hoàn tất, chuyển một chiều. Case study còn có các trạng thái Đã phân công, Chờ linh kiện, Đã đóng và Đã hủy nhưng tài liệu này không dùng: Đã phân công đã có trường kỹ thuật viên thể hiện, Chờ linh kiện thuộc luồng kho linh kiện (L5), còn Đã đóng và Đã hủy nằm ngoài phạm vi luồng tiếp nhận. Quá hạn và sắp đến hạn là kết quả hệ thống tự tính từ hạn cam kết, không phải trạng thái. Khách hàng được nhận diện theo số điện thoại: số đã có thì dùng lại hồ sơ cũ, chưa có thì tạo hồ sơ mới. Hệ thống không có đăng nhập, hai vai trò dùng chung một giao diện.
+Phiếu chỉ có ba trạng thái Mới tiếp nhận → Đang xử lý → Hoàn tất, chuyển một chiều. Case study còn có các trạng thái Đã phân công, Chờ linh kiện, Đã đóng và Đã hủy nhưng tài liệu này không dùng: Đã phân công đã có trường kỹ thuật viên thể hiện, Chờ linh kiện thuộc luồng kho linh kiện (L5), còn Đã đóng và Đã hủy nằm ngoài phạm vi luồng tiếp nhận. Quá hạn và sắp đến hạn là kết quả hệ thống tự tính từ hạn cam kết, không phải trạng thái. Khách hàng được nhận diện theo số điện thoại: số đã có thì dùng lại hồ sơ cũ, chưa có thì tạo hồ sơ mới. Ở BT1 hệ thống không có đăng nhập, hai vai trò dùng chung một giao diện. (Đã đổi ở BT2: hệ thống có đăng nhập và hai vai trò khác nhau, xem TD-05.)
 
 ## 2.3 Ràng buộc
 
@@ -73,7 +73,7 @@ Phiếu chỉ có ba trạng thái Mới tiếp nhận → Đang xử lý → Ho
 
 - Trạng thái (QT-06): chỉ chuyển theo một chiều Mới tiếp nhận → Đang xử lý → Hoàn tất; mỗi lần chuyển được ghi lại thời điểm cùng trạng thái trước và sau.
 
-- Không xóa (QT-13): hệ thống không có chức năng xóa phiếu, hồ sơ khách hay kỹ thuật viên.
+- Không xóa (QT-13): hệ thống không xóa hẳn phiếu, hồ sơ khách hay kỹ thuật viên khỏi cơ sở dữ liệu. (Ở BT2 có thêm xóa mềm phiếu cho Quản lý: phiếu chỉ bị ẩn, dữ liệu vẫn còn, xem TD-06.)
 
 | **Trường**    | **Bắt buộc**     | **Quy tắc**                                                                        |
 |---------------|------------------|------------------------------------------------------------------------------------|
