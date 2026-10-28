@@ -87,7 +87,7 @@ Dữ liệu mẫu là bộ dữ liệu mô phỏng của case study Mekong Mobil
 - [x] Xem hạn cam kết, xem và lọc danh sách phiếu, xem chi tiết phiếu, tra cứu khách hàng (US5, US6, US7)
 - [x] Đăng nhập và phân quyền hai vai trò, màn Tổng quan, xóa mềm phiếu (phần mở rộng, xem `docs/thay-doi-thiet-ke.md`)
 - [x] Migration và seed chạy lại không nhân đôi dữ liệu
-- [x] Giao diện năm màn, mỗi màn có trạng thái đang tải, rỗng, lỗi (có nút Thử lại)
+- [x] Giao diện năm màn gọi API thật; các màn hiển thị dữ liệu có trạng thái đang tải, rỗng, lỗi (có nút Thử lại)
 - [x] Ghi log JSON và mã tra cứu khi có lỗi
 - [x] Kiểm thử tự động (57 test)
 - [x] Đóng gói Docker (`docker compose up --build`)
