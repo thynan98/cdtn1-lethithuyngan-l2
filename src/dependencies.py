@@ -15,6 +15,7 @@ from src.repositories.technician_repository import TechnicianRepository
 from src.repositories.ticket_repository import TicketRepository
 from src.repositories.user_repository import UserRepository
 from src.services.auth_service import AuthService
+from src.services.category_service import CategoryService
 from src.services.customer_service import CustomerService
 from src.services.technician_service import TechnicianService
 from src.services.ticket_service import TicketService
@@ -35,8 +36,8 @@ def get_customer_service():
     return CustomerService(CustomerRepository(db), TicketRepository(db))
 
 
-def get_category_repository():
-    return CategoryRepository(get_db())
+def get_category_service():
+    return CategoryService(CategoryRepository(get_db()))
 
 
 def get_auth_service():

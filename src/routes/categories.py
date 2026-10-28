@@ -1,13 +1,13 @@
 """Tầng 1 - cổng HTTP danh sách loại lỗi (US2)."""
 from fastapi import APIRouter, Depends
 
-from src.dependencies import get_category_repository, require_permission
+from src.dependencies import get_category_service, require_permission
+from src.services.category_service import CategoryService
 
 router = APIRouter(prefix="/api/issue-categories", tags=["issue-categories"])
 
 
 @router.get("")
-def list_categories(categories=Depends(get_category_repository),
+def list_categories(service: CategoryService = Depends(get_category_service),
                     user=Depends(require_permission("ticket:view"))):
-    return {"items": [{"category_id": c["category_id"], "category_code": c["category_code"],
-                       "category_name": c["category_name"]} for c in categories.list_active()]}
+    return service.list_categories()

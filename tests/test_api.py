@@ -5,6 +5,7 @@ from pymongo.errors import ServerSelectionTimeoutError
 
 from src import dependencies as dep
 from src.main import app
+from src.services.category_service import CategoryService
 from src.services.customer_service import CustomerService
 from tests.conftest import NEW_TICKET
 
@@ -15,7 +16,7 @@ def client(repos, ticket_service, technician_service, auth):
     app.dependency_overrides[dep.get_technician_service] = lambda: technician_service
     app.dependency_overrides[dep.get_auth_service] = lambda: auth
     app.dependency_overrides[dep.get_customer_service] = lambda: CustomerService(repos["customers"], repos["tickets"])
-    app.dependency_overrides[dep.get_category_repository] = lambda: repos["categories"]
+    app.dependency_overrides[dep.get_category_service] = lambda: CategoryService(repos["categories"])
     yield TestClient(app, raise_server_exceptions=False)
     app.dependency_overrides.clear()
 
