@@ -1,4 +1,4 @@
-"""Tầng 4 - kho dữ liệu kỹ thuật viên. CHỈ đọc/ghi MongoDB.
+"""Tầng 3 (lớp repositories) - kho dữ liệu kỹ thuật viên. CHỈ đọc/ghi MongoDB.
 
 Không xóa cứng (QT-13): "ngừng hoạt động" chỉ đặt is_active = False.
 """

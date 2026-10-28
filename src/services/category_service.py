@@ -1,4 +1,4 @@
-"""Tầng 3 - nghiệp vụ danh sách loại lỗi (US2): chỉ đọc, trả về các loại lỗi đang dùng."""
+"""Tầng 2 (lớp services) - nghiệp vụ danh sách loại lỗi (US2): chỉ đọc, trả về các loại lỗi đang dùng."""
 
 
 class CategoryService:

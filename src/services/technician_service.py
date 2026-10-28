@@ -1,4 +1,4 @@
-"""Tầng 3 - nghiệp vụ kỹ thuật viên (thực thể thứ hai có đủ thêm, xem, sửa, ngừng hoạt động).
+"""Tầng 2 (lớp services) - nghiệp vụ kỹ thuật viên (thực thể thứ hai có đủ thêm, xem, sửa, ngừng hoạt động).
 
 QT-13: không xóa cứng. "Ngừng hoạt động" chỉ đặt is_active = False; kỹ thuật viên
 đó biến mất khỏi danh sách chọn nhưng lịch sử các phiếu cũ vẫn giữ nguyên.

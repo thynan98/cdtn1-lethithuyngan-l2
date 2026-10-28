@@ -1,4 +1,4 @@
-"""Tầng 1 - cổng HTTP của đăng nhập. Chỉ nhận yêu cầu, gọi service, trả kết quả."""
+"""Tầng 2 (lớp routes) - cổng HTTP của đăng nhập. Chỉ nhận yêu cầu, gọi service, trả kết quả."""
 from fastapi import APIRouter, Body, Depends
 
 from src.dependencies import current_user, get_auth_service

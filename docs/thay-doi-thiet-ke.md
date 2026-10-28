@@ -32,7 +32,7 @@
 - Ảnh hưởng: phiếu có thêm `deleted_at`, kỹ thuật viên có thêm `is_active`; thêm `DELETE /api/tickets/{id}` và nhóm `/api/technicians`. Đây là phần em mở rộng ngoài SRS, mong giảng viên xác nhận.
 
 ## TD-07. Bỏ các mục ngoài SRS và thêm 3 trạng thái giao diện
-- Đã đổi: em bỏ những mục chỉ có trên wireframe mà SRS không yêu cầu. Mỗi màn có đủ ba trạng thái: đang tải, rỗng, lỗi (có nút Thử lại).
+- Đã đổi: em bỏ những mục chỉ có trên wireframe mà SRS không yêu cầu. Màn Tổng quan và Danh sách phiếu có đủ ba trạng thái: đang tải, rỗng, lỗi (có nút Thử lại). Màn Chi tiết phiếu có đang tải, lỗi (có nút Thử lại) và báo rõ khi chưa có lịch sử. Hai màn dạng form (Đăng nhập, Tạo phiếu) khóa nút khi đang gửi và báo lỗi theo từng trường.
 - Vì sao: để giữ đúng phạm vi luồng L2 và đáp ứng yêu cầu ba trạng thái của BT2.
 - Ảnh hưởng: mọi trang gọi API qua một lớp client chung (`frontend/js/api/`) và dùng chung một thành phần hiển thị trạng thái.
 

@@ -1,4 +1,4 @@
-"""Tầng 4 - kho dữ liệu loại lỗi. CHỈ đọc MongoDB."""
+"""Tầng 3 (lớp repositories) - kho dữ liệu loại lỗi. CHỈ đọc MongoDB."""
 
 
 class CategoryRepository:

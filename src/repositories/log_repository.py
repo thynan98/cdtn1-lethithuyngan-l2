@@ -1,4 +1,4 @@
-"""Tầng 4 - kho nhật ký: lịch sử chuyển trạng thái và lịch sử đổi kỹ thuật viên."""
+"""Tầng 3 (lớp repositories) - kho nhật ký: lịch sử chuyển trạng thái và lịch sử đổi kỹ thuật viên."""
 from src.repositories.id_generator import next_id
 
 

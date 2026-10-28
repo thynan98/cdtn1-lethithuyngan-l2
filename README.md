@@ -56,7 +56,7 @@ Các lệnh viết cho Windows PowerShell; macOS/Linux đổi lệnh ở bước
 
 ## 4. Cấu trúc thư mục
 
-- `src/routes` (cổng HTTP) -> `src/validators` (kiểm đầu vào) -> `src/services` (nghiệp vụ) -> `src/repositories` (đọc/ghi MongoDB)
+- `src/routes` (cổng HTTP) -> `src/services` (nghiệp vụ) -> `src/repositories` (đọc/ghi MongoDB); `src/services` gọi `src/validators` để kiểm tra dữ liệu vào
 - `migrations/` dựng collection; `seeds/` nạp dữ liệu mẫu; `tests/` kiểm thử; `frontend/` giao diện; `data/sample/` dữ liệu mẫu; `docs/` tài liệu.
 - `Dockerfile`, `docker-compose.yml`: đóng gói để chạy bằng Docker.
 

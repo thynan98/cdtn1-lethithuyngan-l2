@@ -1,4 +1,4 @@
-"""Tầng 1 - cổng HTTP danh sách loại lỗi (US2)."""
+"""Tầng 2 (lớp routes) - cổng HTTP danh sách loại lỗi (US2)."""
 from fastapi import APIRouter, Depends
 
 from src.dependencies import get_category_service, require_permission

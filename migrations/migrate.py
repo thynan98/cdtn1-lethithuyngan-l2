@@ -53,7 +53,7 @@ COLLECTIONS = {
             "status": {"enum": ["MOI", "DANG_XU_LY", "HOAN_TAT"]},    # QT-06
             "received_at": {"bsonType": "date"},
             "due_date": {"bsonType": "date"},                         # QT-04
-            "deleted_at": {"bsonType": ["date", "null"]},             # xóa mềm (TD-05)
+            "deleted_at": {"bsonType": ["date", "null"]},             # xóa mềm (TD-06)
         },
         "indexes": [
             ([("ticket_id", 1)], True),

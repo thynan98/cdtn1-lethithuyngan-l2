@@ -1,4 +1,4 @@
-"""Tầng 1 - cổng HTTP tra cứu khách hàng (US7)."""
+"""Tầng 2 (lớp routes) - cổng HTTP tra cứu khách hàng (US7)."""
 from fastapi import APIRouter, Depends
 
 from src.dependencies import get_customer_service, require_permission

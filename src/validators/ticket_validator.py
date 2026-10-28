@@ -1,4 +1,4 @@
-"""Tầng 1 - kiểm tra định dạng dữ liệu vào. Chưa tra CSDL."""
+"""Tầng 2 (lớp validators) - kiểm tra định dạng dữ liệu vào. Chưa tra CSDL."""
 import re
 
 from src.errors import AppError

@@ -1,4 +1,4 @@
-"""Tầng 3 - nghiệp vụ tra cứu khách hàng (US7)."""
+"""Tầng 2 (lớp services) - nghiệp vụ tra cứu khách hàng (US7)."""
 from src.errors import AppError
 from src.timeutil import iso_vn
 from src.validators.ticket_validator import PHONE_PATTERN, normalize_phone

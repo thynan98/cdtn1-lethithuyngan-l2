@@ -1,4 +1,4 @@
-"""Tầng 4 - kho dữ liệu của phiếu. CHỈ đọc/ghi MongoDB, không chứa quy tắc nghiệp vụ.
+"""Tầng 3 (lớp repositories) - kho dữ liệu của phiếu. CHỈ đọc/ghi MongoDB, không chứa quy tắc nghiệp vụ.
 
 Phiếu "đã xóa mềm" có deleted_at khác rỗng; mọi truy vấn mặc định bỏ qua các phiếu này.
 """

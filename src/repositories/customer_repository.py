@@ -1,4 +1,4 @@
-"""Tầng 4 - kho dữ liệu khách hàng. CHỈ đọc/ghi MongoDB."""
+"""Tầng 3 (lớp repositories) - kho dữ liệu khách hàng. CHỈ đọc/ghi MongoDB."""
 from src.repositories.id_generator import next_id
 
 

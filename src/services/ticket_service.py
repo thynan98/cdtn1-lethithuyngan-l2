@@ -1,4 +1,4 @@
-"""Tầng 3 - nghiệp vụ của phiếu bảo hành.
+"""Tầng 2 (lớp services) - nghiệp vụ của phiếu bảo hành.
 
 Quy tắc ở đây KHÔNG biết gì về HTTP (không request, không mã trạng thái) và KHÔNG
 biết MongoDB: các kho dữ liệu được đưa vào qua hàm khởi tạo (tiêm phụ thuộc), nên

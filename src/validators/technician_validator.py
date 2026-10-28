@@ -1,4 +1,4 @@
-"""Tầng 1 - kiểm tra định dạng dữ liệu kỹ thuật viên."""
+"""Tầng 2 (lớp validators) - kiểm tra định dạng dữ liệu kỹ thuật viên."""
 import re
 
 from src.errors import AppError

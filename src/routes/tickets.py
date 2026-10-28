@@ -1,4 +1,4 @@
-"""Tầng 1 - cổng HTTP của phiếu bảo hành. KHÔNG chứa quy tắc nghiệp vụ.
+"""Tầng 2 (lớp routes) - cổng HTTP của phiếu bảo hành. KHÔNG chứa quy tắc nghiệp vụ.
 
 Việc của route: nhận yêu cầu → kiểm quyền → gọi service → trả kết quả.
 Lỗi nghiệp vụ (AppError) được src/main.py đổi thành mã HTTP và thân lỗi chuẩn.

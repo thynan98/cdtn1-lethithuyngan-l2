@@ -1,4 +1,4 @@
-"""Tầng 1 - cổng HTTP của kỹ thuật viên."""
+"""Tầng 2 (lớp routes) - cổng HTTP của kỹ thuật viên."""
 from fastapi import APIRouter, Body, Depends
 
 from src.dependencies import current_user, get_technician_service, require_permission

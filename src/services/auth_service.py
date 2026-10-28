@@ -1,4 +1,4 @@
-"""Tầng 3 - đăng nhập cơ bản và phân quyền nhẹ (TD-05).
+"""Tầng 2 (lớp services) - đăng nhập cơ bản và phân quyền nhẹ (TD-05).
 
 - Mật khẩu KHÔNG lưu chữ thường: băm bằng PBKDF2-SHA256 kèm muối ngẫu nhiên.
 - Đăng nhập đúng thì cấp token JWT (có hạn); mỗi lần gọi API trình duyệt gửi lại token.
