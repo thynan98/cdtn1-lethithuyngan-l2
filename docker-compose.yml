@@ -1,0 +1,29 @@
+# Chạy cả hệ thống bằng một lệnh:  docker compose up --build
+# Sau đó mở http://localhost:8000
+services:
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo_data:/data/db          # giữ dữ liệu khi container bị xóa
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      MONGODB_URI: mongodb://mongo:27017
+      MONGODB_DB: warranty
+      # Chỉ để chạy thử trong Docker; khi dùng thật hãy đặt JWT_SECRET riêng (ít nhất 32 ký tự).
+      JWT_SECRET: ${JWT_SECRET:-docker-chay-thu-doi-chuoi-nay-khi-dung-that-0123456789}
+      LOG_LEVEL: INFO
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo_data:
