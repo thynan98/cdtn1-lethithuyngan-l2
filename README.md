@@ -54,6 +54,15 @@ Các lệnh viết cho Windows PowerShell; macOS/Linux đổi lệnh ở bước
 - `nhanvien01` / `NhanVien@2026` (nhân viên tiếp nhận)
 - `quanly01` / `QuanLy@2026` (quản lý trung tâm)
 
+### Kiểm tra hệ thống đã chạy đúng
+
+1. Mở giao diện, đăng nhập bằng `nhanvien01` / `NhanVien@2026`. Màn Tổng quan hiện tổng 60 phiếu (dữ liệu mẫu) chia theo trạng thái, kèm số phiếu quá hạn và sắp đến hạn.
+2. Vào "Danh sách phiếu": thấy bảng phiếu có mã dạng `BH-000604/2026`, có thể lọc theo trạng thái và phiếu quá hạn. Dữ liệu mẫu chưa có phiếu "Mới tiếp nhận" nên tab đó đang rỗng.
+3. Bấm "Tạo phiếu mới" rồi để trống số điện thoại: hệ thống không lưu và báo lỗi ngay tại ô số điện thoại.
+4. Mở http://127.0.0.1:8000/docs: thấy trang thử API với các endpoint dưới `/api/...`.
+5. (Cách 2) Chạy `python -m pytest -q`: kết quả `57 passed`.
+6. (Cách 2) Chạy lại `python -m seeds.seed`: mọi bảng báo "thêm 0", tức là không nhân đôi dữ liệu.
+
 ## 4. Cấu trúc thư mục
 
 - `src/routes` (cổng HTTP) -> `src/services` (nghiệp vụ) -> `src/repositories` (đọc/ghi MongoDB); `src/services` gọi `src/validators` để kiểm tra dữ liệu vào
@@ -79,6 +88,7 @@ Dữ liệu mẫu là bộ dữ liệu mô phỏng của case study Mekong Mobil
 - `docs/ai-disclosure.md`: khai báo sử dụng công cụ AI
 - `docs/srs.md`, `docs/api-contract.md`, `docs/data-model.md`: yêu cầu, đặc tả API, mô hình dữ liệu
 - `docs/architecture-thuc-te.drawio`: sơ đồ kiến trúc đã hiện thực
+- `docs/BT1_2374802010328_LETHITHUYNGAN.pdf`: báo cáo Bài tập 1 đã nộp
 
 ## 8. Trạng thái hiện tại (Bài tập 2, tag v0.2)
 
