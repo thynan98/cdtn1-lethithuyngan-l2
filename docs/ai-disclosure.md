@@ -27,7 +27,7 @@
 | Docker (BT2) | Claude | Soạn nháp `Dockerfile`, `docker-compose.yml`, `.dockerignore` | Sinh viên cài Docker Desktop, tự chạy `docker compose up --build` và kiểm tra hệ thống lên được | Mở http://localhost:8000, đăng nhập và xem dữ liệu mẫu hiển thị đủ |
 | Cài đặt và gỡ lỗi (BT2) | Claude | Hướng dẫn cài Docker và WSL, cấu hình kết nối MongoDB Atlas, giải thích và tìm nguyên nhân các lỗi khi chạy | Sinh viên làm theo hướng dẫn, tự chạy lệnh, chụp lỗi gửi lại và ghi các lỗi đã gặp vào `bug-log.md` (BUG-001 đến BUG-004) | Chạy lại sau mỗi lần sửa; đối chiếu với tài liệu buổi 11 về bốn bước gỡ lỗi |
 | Quản lý phiên bản (BT2) | Claude | Gợi ý cách chia commit theo chức năng, cách viết thông điệp commit và hướng dẫn các lệnh Git | Sinh viên tự chạy lệnh Git, tự commit và đẩy lên GitHub | Xem lịch sử commit trên GitHub; chạy `git status` trước mỗi commit để chắc không có `.env` |
-| Sơ đồ kiến trúc thực tế (BT2) | Claude | Chỉ ra những chỗ sơ đồ BT1 khác với code (đăng nhập, bảng `user`, màn Tổng quan) | Sinh viên tự vẽ lại sơ đồ trên draw.io theo hệ thống đã làm | Đối chiếu từng khối trong sơ đồ với thư mục `src/` |
+| Sơ đồ kiến trúc thực tế (BT2) | Claude | Chỉ ra những chỗ sơ đồ BT1 khác với code (đăng nhập, bảng `user`, màn Tổng quan) và dựng một bản sơ đồ mẫu để tham khảo | Sinh viên tự vẽ lại sơ đồ trên draw.io theo hệ thống đã làm | Đối chiếu từng khối trong sơ đồ với thư mục `src/` |
 | Nhật ký lỗi, README, thay đổi thiết kế (BT2) | Claude | Soạn nháp nội dung và khung trình bày | Sinh viên viết lại bằng lời của mình, kiểm tra từng dòng với repo và lịch sử commit | Mở lại từng link commit; làm theo README trên thư mục sạch |
 
 ## 3. Những phần không dùng AI
