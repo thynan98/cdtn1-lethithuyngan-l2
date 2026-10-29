@@ -83,7 +83,7 @@ Dữ liệu mẫu là bộ dữ liệu mô phỏng của case study Mekong Mobil
 
 ## 7. Tài liệu
 
-- `docs/thay-doi-thiet-ke.md`: các thay đổi so với thiết kế BT1 (TD-01 đến TD-13)
+- `docs/thay-doi-thiet-ke.md`: các thay đổi so với thiết kế BT1 (TD-01 đến TD-14)
 - `docs/bug-log.md`: nhật ký lỗi đã gặp và cách gỡ (BUG-001 đến BUG-004)
 - `docs/ai-disclosure.md`: khai báo sử dụng công cụ AI
 - `docs/srs.md`, `docs/api-contract.md`, `docs/data-model.md`: yêu cầu, đặc tả API, mô hình dữ liệu

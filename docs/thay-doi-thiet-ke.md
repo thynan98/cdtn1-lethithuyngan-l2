@@ -66,3 +66,8 @@
 - Vì sao: ở bản đầu route này đi thẳng vào repository, bỏ qua tầng service, không đúng thiết kế 4 tầng của BT1 (routes → services → repositories).
 - Ảnh hưởng: `src/routes/categories.py`, `src/dependencies.py`, `tests/test_api.py`. Kết quả API không đổi, vẫn 57 test PASS. Đây là sửa cho đúng thiết kế, không đổi chức năng.
 
+## TD-14. Chọn loại lỗi ngay trên form tạo phiếu
+- Đã đổi: em thêm ô "Loại lỗi" vào form Tạo phiếu mới, đặt trước ô Mô tả lỗi. Chọn loại lỗi ở form thì phiếu sinh ra đã có loại lỗi; bỏ trống thì phân loại sau ở trang chi tiết như trước.
+- Vì sao: giảng viên góp ý nên chọn loại lỗi trước rồi mới nhập mô tả lỗi, thay vì tạo phiếu xong mới phân loại.
+- Ảnh hưởng: chỉ `frontend/js/pages/ticket-create.js`. API, test và cơ sở dữ liệu không đổi; trang chi tiết vẫn cho đổi loại lỗi (US2).
+- Nguồn: góp ý của giảng viên khi xem giao diện BT2.
