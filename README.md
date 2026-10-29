@@ -15,7 +15,7 @@ Tại trung tâm bảo hành Mekong Mobile, yêu cầu bảo hành đang đượ
 Chọn một trong hai cách chạy ở mục 3.
 
 - Cách 1 (Docker): chỉ cần Git và Docker Desktop.
-- Cách 2 (Python): Python 3.11 trở lên (đã chạy thử trên Python 3.14.2, Windows), Git, và một MongoDB (cài trên máy tại `localhost:27017`, hoặc MongoDB Atlas).
+- Cách 2 (Python): Python 3.14 (đã chạy thử trên Python 3.14.2, Windows), Git, và một MongoDB (cài trên máy tại `localhost:27017`, hoặc MongoDB Atlas).
 - Trình duyệt web hiện đại (giao diện HTML/CSS/JavaScript).
 - Biến môi trường (chỉ cần ở cách 2): xem `.env.example` gồm `MONGODB_URI`, `MONGODB_DB`, `JWT_SECRET`, `JWT_EXPIRE_MINUTES`, `LOG_LEVEL`.
 
