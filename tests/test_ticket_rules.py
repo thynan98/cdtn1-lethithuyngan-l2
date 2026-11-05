@@ -47,6 +47,15 @@ def test_tc08_boundary_description_exactly_10_chars_is_accepted():
     assert data["priority"] == "TRUNG_BINH"             # mặc định theo hợp đồng
 
 
+def test_boundary_description_9_chars_is_rejected():
+    # TC-06: ngay dưới ranh giới 10 ký tự thì phải bị từ chối
+    with pytest.raises(AppError) as err:
+        validate_create_ticket({"customer_name": "An", "customer_phone": "0912345678",
+                                "issue_desc": "123456789"})
+    assert err.value.code == "INVALID_FORMAT"
+    assert "issue_desc" in err.value.fields
+
+
 # ---- Loại 3: dữ liệu sai ------------------------------------------------
 def test_tc05_invalid_status_cannot_skip_step():
     with pytest.raises(AppError) as err:
