@@ -21,6 +21,12 @@ services:
       # Lấy từ .env (sao chép từ .env.example); không có giá trị mặc định trong repo.
       JWT_SECRET: ${JWT_SECRET:?Thiếu JWT_SECRET - chạy "cp .env.example .env" trước}
       LOG_LEVEL: INFO
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     depends_on:
       mongo:
         condition: service_healthy
