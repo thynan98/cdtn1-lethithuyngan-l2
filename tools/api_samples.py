@@ -153,7 +153,7 @@ def main():
     with open(OUT, "w", encoding="utf-8") as f:
         f.write("# Phản hồi thật của API (tạo bởi tools/api_samples.py)\n\n")
         f.write("\n".join(lines))
-    print(f"\nĐã ghi {OUT}. Gửi file này cho mình; không commit file này.")
+    print(f"\nĐã ghi {OUT}. Không commit file này (chứa dữ liệu thử).")
 
 
 if __name__ == "__main__":
