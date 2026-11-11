@@ -2,8 +2,7 @@
 
 Không xóa cứng (QT-13): "ngừng hoạt động" chỉ đặt is_active = False.
 """
-from src.repositories.id_generator import next_id
-
+from src.repositories.id_generator import is_storable_id, next_id
 
 class TechnicianRepository:
     def __init__(self, db):
@@ -15,7 +14,9 @@ class TechnicianRepository:
         return list(self.col.find(query, {"_id": 0}).sort("technician_code", 1))
 
     def get(self, technician_id):
-        return self.col.find_one({"technician_id": technician_id}, {"_id": 0})
+            if not is_storable_id(technician_id):
+                return None
+            return self.col.find_one({"technician_id": technician_id}, {"_id": 0})
 
     def get_many(self, ids):
         ids = list(ids)

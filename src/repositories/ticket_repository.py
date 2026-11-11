@@ -2,9 +2,7 @@
 
 Phiếu "đã xóa mềm" có deleted_at khác rỗng; mọi truy vấn mặc định bỏ qua các phiếu này.
 """
-from src.repositories.id_generator import next_id
-
-
+from src.repositories.id_generator import is_storable_id, next_id
 class TicketRepository:
     def __init__(self, db):
         self.db = db
@@ -23,6 +21,8 @@ class TicketRepository:
         return doc
 
     def get(self, ticket_id, include_deleted=False):
+        if not is_storable_id(ticket_id):
+            return None        # id vô lý (quá 8 byte) thì không có phiếu; tránh OverflowError của pymongo (BUG-006)
         query = {"ticket_id": ticket_id}
         if not include_deleted:
             query["deleted_at"] = None
