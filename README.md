@@ -17,7 +17,7 @@ Chọn một trong hai cách chạy ở mục 3.
 - Cách 1 (Docker): chỉ cần Git và Docker Desktop.
 - Cách 2 (Python): Python 3.14 (đã chạy thử trên Python 3.14.2, Windows), Git, và một MongoDB (cài trên máy tại `localhost:27017`, hoặc MongoDB Atlas).
 - Trình duyệt web hiện đại (giao diện HTML/CSS/JavaScript).
-- Biến môi trường (chỉ cần ở cách 2): xem `.env.example` gồm `MONGODB_URI`, `MONGODB_DB`, `JWT_SECRET`, `JWT_EXPIRE_MINUTES`, `LOG_LEVEL`.
+- Biến môi trường: xem `.env.example` gồm `MONGODB_URI`, `MONGODB_DB`, `JWT_SECRET`, `JWT_EXPIRE_MINUTES`, `LOG_LEVEL`. Cả hai cách đều cần file `.env` (sao chép từ `.env.example`); riêng Docker chỉ bắt buộc có `JWT_SECRET`.
 
 ## 3. Hướng dẫn chạy
 
@@ -26,13 +26,16 @@ Lấy mã nguồn (cả hai cách):
 1. `git clone --branch v0.2 https://github.com/thynan98/cdtn1-lethithuyngan-l2.git`
 2. `cd cdtn1-lethithuyngan-l2`
 
-### Cách 1: chạy bằng Docker (một lệnh)
+### Cách 1: chạy bằng Docker (hai lệnh)
 
 3. Mở Docker Desktop và chờ đến khi báo "Engine running".
-4. `docker compose up --build`
-5. Chờ đến khi thấy dòng `Uvicorn running on http://0.0.0.0:8000`, rồi mở http://localhost:8000.
+4. `Copy-Item .env.example .env`  (macOS/Linux: `cp .env.example .env`)
+5. `docker compose up -d --build`
+6. Chờ khoảng một phút rồi mở http://localhost:8000. Xem trạng thái các dịch vụ bằng `docker compose ps`.
 
-Hệ thống tự dựng collection và nạp dữ liệu mẫu. Dừng bằng `Ctrl + C`, sau đó `docker compose down`.
+Nếu chưa có file `.env`, `docker compose up` sẽ dừng và báo thiếu `JWT_SECRET`. Khóa mẫu trong `.env.example` là công khai, nên khi triển khai thật phải đổi sang chuỗi ngẫu nhiên của riêng mình (`python -c "import secrets; print(secrets.token_hex(32))"`).
+
+Hệ thống tự dựng collection và nạp dữ liệu mẫu. Dừng bằng `docker compose down`.
 
 ### Cách 2: chạy trực tiếp bằng Python
 
@@ -60,7 +63,7 @@ Các lệnh viết cho Windows PowerShell; macOS/Linux đổi lệnh ở bước
 2. Vào "Danh sách phiếu": thấy bảng phiếu có mã dạng `BH-000604/2026`, có thể lọc theo trạng thái và phiếu quá hạn. Dữ liệu mẫu chưa có phiếu "Mới tiếp nhận" nên tab đó đang rỗng.
 3. Bấm "Tạo phiếu mới" rồi để trống số điện thoại: hệ thống không lưu và báo lỗi ngay tại ô số điện thoại.
 4. Mở http://127.0.0.1:8000/docs: thấy trang thử API với các endpoint dưới `/api/...`.
-5. (Cách 2) Chạy `python -m pytest -q`: kết quả `57 passed`.
+5. (Cách 2) Chạy `python -m pytest -q`: kết quả `68 passed`.
 6. (Cách 2) Chạy lại `python -m seeds.seed`: mọi bảng báo "thêm 0", tức là không nhân đôi dữ liệu.
 
 ## 4. Cấu trúc thư mục
@@ -71,7 +74,7 @@ Các lệnh viết cho Windows PowerShell; macOS/Linux đổi lệnh ở bước
 
 ## 5. Kiểm thử
 
-`python -m pytest -q` - chạy toàn bộ test bằng một lệnh. Không cần MongoDB vì dùng kho dữ liệu giả (`tests/fakes.py`), nên kết quả không phụ thuộc dữ liệu trên máy. Hiện có 57 test, gồm đủ ba loại: luồng đúng, giá trị biên và dữ liệu sai. Trong đó có 2 test hồi quy cho BUG-003 (`tests/test_repo_hygiene.py`).
+`python -m pytest -q` - chạy toàn bộ test bằng một lệnh. Không cần MongoDB vì dùng kho dữ liệu giả (`tests/fakes.py`), nên kết quả không phụ thuộc dữ liệu trên máy. Hiện có 68 test, gồm đủ ba loại: luồng đúng, giá trị biên và dữ liệu sai. Trong đó có 12 test hồi quy cho các lỗi đã sửa: 2 cho BUG-003 (`tests/test_repo_hygiene.py`), 6 cho BUG-005 (`tests/test_config.py` và `tests/test_repo_hygiene.py`) và 4 cho BUG-006 (`tests/test_id_range.py`).
 
 ## 6. Dữ liệu mẫu
 
@@ -84,7 +87,8 @@ Dữ liệu mẫu là bộ dữ liệu mô phỏng của case study Mekong Mobil
 ## 7. Tài liệu
 
 - `docs/thay-doi-thiet-ke.md`: các thay đổi so với thiết kế BT1 (TD-01 đến TD-14)
-- `docs/bug-log.md`: nhật ký lỗi đã gặp và cách gỡ (BUG-001 đến BUG-004)
+- `docs/test-plan.md`, `docs/test-report.md`: kế hoạch kiểm thử và báo cáo kết quả (12 test case)
+- `docs/bug-log.md`: nhật ký lỗi đã gặp và cách gỡ (BUG-001 đến BUG-006)
 - `docs/ai-disclosure.md`: khai báo sử dụng công cụ AI
 - `docs/srs.md`, `docs/api-contract.md`, `docs/data-model.md`: yêu cầu, đặc tả API, mô hình dữ liệu
 - `docs/architecture-thuc-te.drawio`: sơ đồ kiến trúc đã hiện thực
@@ -99,5 +103,5 @@ Dữ liệu mẫu là bộ dữ liệu mô phỏng của case study Mekong Mobil
 - [x] Migration và seed chạy lại không nhân đôi dữ liệu
 - [x] Giao diện năm màn gọi API thật; các màn hiển thị dữ liệu có trạng thái đang tải, rỗng, lỗi (có nút Thử lại)
 - [x] Ghi log JSON và mã tra cứu khi có lỗi
-- [x] Kiểm thử tự động (57 test)
-- [x] Đóng gói Docker (`docker compose up --build`)
+- [x] Kiểm thử tự động (68 test)
+- [x] Đóng gói Docker (`docker compose up -d --build`)
