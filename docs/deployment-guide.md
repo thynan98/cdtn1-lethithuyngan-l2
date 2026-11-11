@@ -113,9 +113,10 @@ Every collection should report `thêm 0` (Vietnamese for "added 0").
 2. The health endpoint answers:
 
    ```
-   curl http://localhost:8000/health
+   curl.exe http://localhost:8000/health
    ```
-
+   On macOS/Linux use `curl http://localhost:8000/health`.
+   
    Expected: HTTP 200 and the body `{"status":"ok","db":"ok"}`.
 
 3. Log in at http://localhost:8000 with `nhanvien01` / `NhanVien@2026`. The Overview screen shows 60 tickets split by status, with the number of overdue and nearly due tickets.
@@ -131,6 +132,7 @@ Every collection should report `thêm 0` (Vietnamese for "added 0").
    ```
 
    Expected: `68 passed`.
+
 ## Enabling HTTPS for a real deployment
 
 The application itself serves plain HTTP on port 8000 (`uvicorn`). This is fine for a local trial, but logins and tokens must not travel over plain HTTP on a real server. I have not deployed the system on a public server, so the steps below describe what to do and are not tested here.
