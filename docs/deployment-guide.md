@@ -131,6 +131,15 @@ Every collection should report `thêm 0` (Vietnamese for "added 0").
    ```
 
    Expected: `68 passed`.
+## Enabling HTTPS for a real deployment
+
+The application itself serves plain HTTP on port 8000 (`uvicorn`). This is fine for a local trial, but logins and tokens must not travel over plain HTTP on a real server. I have not deployed the system on a public server, so the steps below describe what to do and are not tested here.
+
+1. Put a reverse proxy that handles TLS (for example Caddy or Nginx) in front of the `app` container, and get a certificate for your domain (for example from Let's Encrypt).
+2. Let only the proxy listen on the public ports 80 and 443. Remove the `ports: "8000:8000"` line for `app` in `docker-compose.yml`, so that port 8000 is reachable only from the proxy inside the Docker network. MongoDB already publishes no port.
+3. Redirect HTTP to HTTPS in the proxy configuration.
+4. Replace the sample `JWT_SECRET` with your own random key (see "Environment variables").
+5. After the change, open the site with `https://` and check that the browser shows a valid certificate.
 
 ## Troubleshooting
 
