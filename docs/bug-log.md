@@ -51,14 +51,6 @@ Dòng "Nguyên nhân" ghi nguyên nhân gốc, không ghi lại triệu chứng.
 | 6. Cách sửa | Nhấn `Esc` (hoặc `Enter`) trong cửa sổ PowerShell để thoát chế độ chọn; các dòng log hiện ra đủ |
 | 7. Commit và xác nhận | Không có thay đổi mã. Xác nhận: tạo phiếu mới thì hiện dòng log "đã tạo phiếu" kèm mã phiếu, không có số điện thoại hay tên khách |
 
-# BẢN NHÁP: hai mục Bug Log mới và phần cập nhật Test Report
-
-Bạn đọc, kiểm tra từng dòng với repo và ảnh, rồi viết lại bằng lời của mình.
-
----
-
-## A. Dán thêm vào cuối `docs/bug-log.md` (sau BUG-004)
-
 ## BUG-005 · Critical · Khóa ký token mặc định nằm trong repo công khai, ai cũng giả được token quản lý
 
 | Dòng | Nội dung |
@@ -83,19 +75,3 @@ Bạn đọc, kiểm tra từng dòng với repo và ảnh, rồi viết lại b
 | 6. Cách sửa | Thêm hàm `is_storable_id` (id từ 1 đến 2^63-1) trong `src/repositories/id_generator.py`. Hàm `get` của kho phiếu, kỹ thuật viên và loại lỗi trả `None` khi id ngoài khoảng, nên service trả 404 như bình thường |
 | 7. Commit và xác nhận | Sửa: [18634b2](https://github.com/thynan98/cdtn1-lethithuyngan-l2/commit/18634b2). Test hồi quy `tests/test_id_range.py` (4 test): 3 FAIL trước khi sửa, 68 passed sau khi sửa. Chạy lại TC-09 trên bản clone mới: cả hai id trả 404 |
 
----
-
-## B. Sửa `docs/test-report.md`
-
-Đoạn đầu: đổi thành
-
-> Lần chạy đầu (11/11/2026): 12 test case, 10 PASS, 2 FAIL (TC-09, TC-11). Sau khi sửa BUG-005 và BUG-006, em chạy lại: 12/12 PASS. Bộ test tự động `python -m pytest -q` cho 68 passed.
-
-Hai dòng P/F của bảng:
-
-- TC-09: `FAIL lần đầu (BUG-006); chạy lại sau sửa: PASS (cả hai id trả 404)`
-- TC-11: `FAIL lần đầu (BUG-005); chạy lại sau sửa: PASS (cả hai endpoint trả 401)`
-
-Phần "Ghi chú về tính trung thực" thay phần "(Phần 'Sau khi sửa' em sẽ điền sau...)" bằng:
-
-> Ảnh lúc FAIL giữ nguyên là `TC-09.png` và `TC-11.png`; ảnh chạy lại sau sửa là `TC-09-sau-sua.png` và `TC-11-sau-sua.png`. Ảnh test hồi quy: `BUG-005-truoc-sua.png`, `BUG-005-sau-sua.png`, `BUG-006-truoc-sua.png`, `BUG-006-sau-sua.png`.

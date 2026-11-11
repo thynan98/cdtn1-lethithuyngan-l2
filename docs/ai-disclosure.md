@@ -29,4 +29,4 @@ Công cụ em đã dùng:
 
 **Cam kết:** Em xác nhận đã đọc, hiểu và chịu trách nhiệm về toàn bộ nội dung nộp.
 
-Họ tên: Lê Thị Thùy Ngân  ·  MSSV: 2374802010328  ·  Ngày: 11/11/2026
+Họ tên: Lê Thị Thùy Ngân  ·  MSSV: 2374802010328  ·  Ngày: 12/11/2026

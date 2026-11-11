@@ -145,7 +145,7 @@
         <mxCell id="c43" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3f3f3;strokeColor=#222222;fontSize=10;" value="&lt;b&gt;src/logging_config.py&lt;/b&gt;&lt;br&gt;định dạng log JSON, gắn request_id" vertex="1">
           <mxGeometry height="82" width="226" x="1042" y="622" as="geometry" />
         </mxCell>
-        <mxCell id="c44" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3f3f3;strokeColor=#222222;fontSize=10;" value="&lt;b&gt;tests/&lt;/b&gt;&lt;br&gt;57 test chạy bằng một lệnh, dùng kho dữ liệu giả tests/fakes.py nên không cần MongoDB" vertex="1">
+        <mxCell id="c44" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3f3f3;strokeColor=#222222;fontSize=10;" value="&lt;b&gt;tests/&lt;/b&gt;&lt;br&gt;68 test chạy bằng một lệnh, dùng kho dữ liệu giả tests/fakes.py nên không cần MongoDB" vertex="1">
           <mxGeometry height="82" width="226" x="1042" y="715" as="geometry" />
         </mxCell>
         <mxCell id="c45" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#222222;dashed=1;align=left;spacingLeft=10;fontSize=11;" value="Chú thích: mũi tên = bên trên gọi bên dưới (phụ thuộc một chiều, không gọi ngược, không bỏ qua tầng). Validators do service gọi để kiểm tra dữ liệu vào. Khác bản BT1: xem TD-05 đến TD-13 trong docs/thay-doi-thiet-ke.md." vertex="1">
