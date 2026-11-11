@@ -36,6 +36,7 @@ Minh chứng: gửi JSON hỏng cho `/api/auth/login` trả 400 `INVALID_FORMAT`
 
 Minh chứng: `docker compose logs app | Select-String "password|token|0[0-9]{9}|NhanVien@|QuanLy@"` không ra dòng nào, trong khi log đã ghi các lần gọi `/api/auth/login` (401, 400, 503). Mỗi dòng log chỉ có thời điểm, mức, `request_id`, method, path, status và thời gian xử lý.
 Ảnh: `docs/screenshots/sec-6.png`
+Ghi chú: trong ảnh, chữ tiếng Việt của trường `thong_diep` bị lỗi font ("y├¬u cß║ºu..."). Đó là do PowerShell hiển thị, không phải lỗi hệ thống; log vẫn được ghi đúng UTF-8.
 
 ## 7. Phụ thuộc ghim phiên bản, đã kiểm lỗ hổng — ĐÃ LÀM
 
