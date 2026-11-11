@@ -14,7 +14,7 @@
 - Giao diện bằng công cụ tự động: em chỉ thử tay trên trình duyệt.
 - Thiết bị và kiểm tra bảo hành: ngoài phạm vi SRS (mục 1.2).
 - Giới hạn số lần đăng nhập sai: hệ thống chưa có chức năng này.
-- Gán kỹ thuật viên, tra cứu khách, xóa mềm (QT-01, QT-13): đã có test trong bộ 58
+- Gán kỹ thuật viên, tra cứu khách, xóa mềm (QT-01, QT-13): đã có test trong bộ 68
   test tự động, nhưng em không đưa vào 12 test case của báo cáo.
 
 ## 2. Loại test và số lượng
@@ -32,7 +32,7 @@ Cách chọn dữ liệu thử: em chia mô tả lỗi thành ba vùng (dưới 
 trên 2000) và thử đúng hai bên ranh giới 10 ký tự (9 và 10). Với hạn cam kết, em thử
 thứ Bảy mức CAO để kiểm tra việc bỏ qua Chủ nhật.
 
-Bộ 58 test tự động (`pytest`) là lưới an toàn: em chạy lại sau mỗi lần sửa bug để
+Bộ 68 test tự động (`pytest`) là lưới an toàn: em chạy lại sau mỗi lần sửa bug để
 chắc không làm hỏng chỗ khác.
 
 ## 3. Tiêu chí thành công
