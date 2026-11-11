@@ -8,6 +8,7 @@ Lưu ý: script TẠO và XÓA dữ liệu thử (một phiếu, một kỹ thu�
 dữ liệu mẫu sạch bằng: docker compose down -v, rồi docker compose up -d --build.
 """
 import json
+import re
 import sys
 
 import httpx
@@ -63,6 +64,7 @@ def call(label, method, path, token=None, body=None):
         lines.append(f"\nThân yêu cầu:\n```json\n{shown}\n```")
     # Danh sách dài chỉ giữ đầu cho gọn
     text = mask(pretty)
+    text = re.sub(r'("access_token": ")[^"]+', r'\1<token>', text)
     if len(text) > 2500:
         text = text[:2500] + "\n... (cắt bớt)"
     lines.append(f"\nPhản hồi: **HTTP {r.status_code}**\n```json\n{text}\n```\n")
