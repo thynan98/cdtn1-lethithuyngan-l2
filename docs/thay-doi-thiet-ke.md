@@ -71,3 +71,23 @@
 - Vì sao: giảng viên góp ý nên chọn loại lỗi trước rồi mới nhập mô tả lỗi, thay vì tạo phiếu xong mới phân loại.
 - Ảnh hưởng: chỉ `frontend/js/pages/ticket-create.js`. API, test và cơ sở dữ liệu không đổi; trang chi tiết vẫn cho đổi loại lỗi (US2).
 - Nguồn: góp ý của giảng viên khi xem giao diện BT2.
+
+## TD-15. Bỏ khóa JWT mặc định, bắt buộc đặt JWT_SECRET
+- Đã đổi: ở BT2 mã có sẵn một khóa JWT mặc định để chạy cho tiện. Em bỏ khóa đó. Giờ nếu không đặt `JWT_SECRET` (hoặc đặt ngắn hơn 32 ký tự) thì hệ thống không khởi động và báo lỗi rõ ràng. Hàm kiểm tra là `check_jwt_secret` trong `src/config.py`, được gọi khi khởi động ở hàm `lifespan` của `src/main.py`.
+- Vì sao: khi chạy test chạy tay TC-11, em giả được một token hợp lệ bằng khóa mặc định đã nằm trong mã nguồn công khai, nên ai đọc mã cũng đăng nhập giả được. Em ghi lại là BUG-005 (mức Critical).
+- Ảnh hưởng: `src/config.py`, `src/main.py`, `.env.example`, `docker-compose.yml` (biến `JWT_SECRET`), thêm `tests/test_config.py`. Commit `de57a6e`.
+
+## TD-16. Kiểm tra khoảng giá trị của id trước khi tra cơ sở dữ liệu
+- Đã đổi: em thêm hàm `is_storable_id` trong `src/repositories/id_generator.py`. Các hàm `get` của ticket, technician và category gọi hàm này trước. Id lớn hơn 9223372036854775807 thì trả "không tìm thấy" (404).
+- Vì sao: khi chạy test chạy tay TC-09, gọi `GET /api/tickets/` với id rất lớn làm MongoDB báo lỗi và API trả 500 thay vì 404. Em ghi lại là BUG-006 (mức Minor).
+- Ảnh hưởng: `src/repositories/id_generator.py`, `ticket_repository.py`, `technician_repository.py`, `category_repository.py`, thêm `tests/test_id_range.py`. Commit `18634b2`.
+
+## TD-17. Thêm healthcheck cho dịch vụ app
+- Đã đổi: em thêm khối `healthcheck` cho dịch vụ `app` trong `docker-compose.yml`. Docker gọi `/health` mỗi 10 giây bằng python (image slim không có curl), chờ 30 giây đầu khởi động. Giờ `docker compose ps` báo cả `mongo` và `app` là `healthy`.
+- Vì sao: đề BT3 yêu cầu compose có healthcheck. Trước đó chỉ `mongo` có, còn `app` thì không biết đã sẵn sàng hay chưa.
+- Ảnh hưởng: chỉ `docker-compose.yml`. Lưu ý: `/health` vẫn trả 200 khi MongoDB tắt (chỉ ghi `"db":"unreachable"` trong nội dung), nên healthcheck chỉ chứng minh ứng dụng đang chạy, không chứng minh đã nối được cơ sở dữ liệu. Em giữ nguyên và đã ghi vào tài liệu API. Commit `76f3e75`.
+
+## TD-18. Docker compose cần tệp .env, README đổi thành hai lệnh
+- Đã đổi: vì không còn khóa mặc định (TD-15), `docker-compose.yml` dùng `${JWT_SECRET:?...}` nên thiếu `.env` thì compose báo lỗi ngay. README giờ hướng dẫn hai lệnh: sao chép `.env.example` thành `.env`, rồi `docker compose up -d --build`.
+- Vì sao: đề BT3 yêu cầu người lạ dựng được hệ thống trong tối đa hai lệnh, và không để lộ khóa thật trong repo. `.env.example` chứa khóa mẫu công khai chỉ để chạy thử, `.env` thật không được commit.
+- Ảnh hưởng: `README.md`, `docker-compose.yml`, `.env.example`. Commit `ba32f10`.
