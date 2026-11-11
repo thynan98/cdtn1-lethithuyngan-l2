@@ -23,7 +23,7 @@ Chọn một trong hai cách chạy ở mục 3.
 
 Lấy mã nguồn (cả hai cách):
 
-1. `git clone --branch v0.2 https://github.com/thynan98/cdtn1-lethithuyngan-l2.git`
+1. `git clone --branch v1.0 https://github.com/thynan98/cdtn1-lethithuyngan-l2.git`
 2. `cd cdtn1-lethithuyngan-l2`
 
 ### Cách 1: chạy bằng Docker (hai lệnh)
@@ -86,15 +86,18 @@ Dữ liệu mẫu là bộ dữ liệu mô phỏng của case study Mekong Mobil
 
 ## 7. Tài liệu
 
-- `docs/thay-doi-thiet-ke.md`: các thay đổi so với thiết kế BT1 (TD-01 đến TD-14)
+- `docs/thay-doi-thiet-ke.md`: các thay đổi so với thiết kế BT1 (TD-01 đến TD-18)
 - `docs/test-plan.md`, `docs/test-report.md`: kế hoạch kiểm thử và báo cáo kết quả (12 test case)
 - `docs/bug-log.md`: nhật ký lỗi đã gặp và cách gỡ (BUG-001 đến BUG-006)
+- `docs/deployment-guide.md`: hướng dẫn triển khai (tiếng Anh) và `docs/checklist-bao-mat.md`: checklist bảo mật 7 mục
+- `docs/api-docs.md`: tài liệu API 17 endpoint (tiếng Anh)
+- `docs/screenshots/`: ảnh minh chứng (test, healthcheck, kiểm tra bảo mật)
 - `docs/ai-disclosure.md`: khai báo sử dụng công cụ AI
 - `docs/srs.md`, `docs/api-contract.md`, `docs/data-model.md`: yêu cầu, đặc tả API, mô hình dữ liệu
 - `docs/architecture-thuc-te.drawio`: sơ đồ kiến trúc đã hiện thực
 - `docs/BT1_2374802010328_LETHITHUYNGAN.pdf`: báo cáo Bài tập 1 đã nộp
 
-## 8. Trạng thái hiện tại (Bài tập 2, tag v0.2)
+## 8. Trạng thái hiện tại (Bài tập 3, tag v1.0)
 
 - [x] Tài liệu phân tích và thiết kế BT1 (SRS, use case, kiến trúc, ERD, wireframe, API contract) trong `docs/`
 - [x] Tạo phiếu bảo hành (US1), phân loại phiếu (US2), gán kỹ thuật viên (US3), cập nhật trạng thái (US4)
@@ -104,4 +107,8 @@ Dữ liệu mẫu là bộ dữ liệu mô phỏng của case study Mekong Mobil
 - [x] Giao diện năm màn gọi API thật; các màn hiển thị dữ liệu có trạng thái đang tải, rỗng, lỗi (có nút Thử lại)
 - [x] Ghi log JSON và mã tra cứu khi có lỗi
 - [x] Kiểm thử tự động (68 test)
-- [x] Đóng gói Docker (`docker compose up -d --build`)
+- [x] Đóng gói Docker (cần tệp `.env`, xem mục 3 Cách 1)
+- [x] Kế hoạch kiểm thử, báo cáo kiểm thử (12 test case) và nhật ký lỗi (BUG-001 đến BUG-006) trong `docs/`
+- [x] Docker compose có healthcheck cho cả `mongo` và `app`, dựng bằng hai lệnh (`Copy-Item .env.example .env` rồi `docker compose up -d --build`)
+- [x] Deployment Guide (tiếng Anh) và checklist bảo mật 7 mục trong `docs/`
+- [x] Tài liệu API (tiếng Anh) cho 17 endpoint trong `docs/api-docs.md`
