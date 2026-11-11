@@ -6,6 +6,7 @@ import logging
 import mimetypes
 import time
 import uuid
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, Request
@@ -45,10 +46,13 @@ def error_body(code, message, fields=None):
     return {"error": {"code": code, "message": message, "fields": fields or {}}}
 
 
-app = FastAPI(title="Hệ thống phiếu bảo hành - Mekong Mobile")
+@asynccontextmanager
+async def lifespan(app):
+    config.check_jwt_secret()        # thiếu hoặc quá ngắn thì dừng ngay lúc khởi động
+    yield
 
-if config.JWT_SECRET_IS_DEFAULT:
-    logger.warning("Chưa đặt JWT_SECRET trong .env, đang dùng khóa chạy thử.")
+
+app = FastAPI(title="Hệ thống phiếu bảo hành - Mekong Mobile", lifespan=lifespan)
 
 
 def _request_id(request: Request) -> str:

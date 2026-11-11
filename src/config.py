@@ -6,9 +6,19 @@ load_dotenv()
 
 MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
 MONGODB_DB = os.getenv("MONGODB_DB", "warranty")
+# Khóa ký token đăng nhập. PHẢI đặt trong .env (hoặc biến môi trường); repo không giữ giá trị mặc định
+# nào, vì repo công khai: ai đọc được khóa là tự ký được token quản lý (BUG-005).
+MIN_JWT_SECRET_LENGTH = 32
+JWT_SECRET = os.getenv("JWT_SECRET", "")
 
-# Khóa ký token đăng nhập. PHẢI đặt trong .env; giá trị dưới đây chỉ để chạy thử cục bộ.
-_DEV_SECRET = "chi-dung-de-chay-thu-hay-dat-JWT_SECRET-trong-env"
-JWT_SECRET = os.getenv("JWT_SECRET") or _DEV_SECRET
-JWT_SECRET_IS_DEFAULT = JWT_SECRET == _DEV_SECRET
+
+def check_jwt_secret(secret=None):
+    """Dừng ngay lúc khởi động nếu thiếu khóa ký token hoặc khóa quá ngắn."""
+    secret = JWT_SECRET if secret is None else secret
+    if len(secret) < MIN_JWT_SECRET_LENGTH:
+        raise RuntimeError(
+            f"Thiếu JWT_SECRET hoặc quá ngắn (cần ít nhất {MIN_JWT_SECRET_LENGTH} ký tự). "
+            "Sao chép .env.example thành .env rồi đặt JWT_SECRET.")
+
+    
 JWT_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "480"))   # 8 giờ
