@@ -79,7 +79,7 @@
 
 ## TD-16. Kiểm tra khoảng giá trị của id trước khi tra cơ sở dữ liệu
 - Đã đổi: em thêm hàm `is_storable_id` trong `src/repositories/id_generator.py`. Các hàm `get` của ticket, technician và category gọi hàm này trước. Id lớn hơn 9223372036854775807 thì trả "không tìm thấy" (404).
-- Vì sao: khi chạy test chạy tay TC-09, gọi `GET /api/tickets/` với id rất lớn làm MongoDB báo lỗi và API trả 500 thay vì 404. Em ghi lại là BUG-006 (mức Minor).
+- Vì sao: khi chạy test chạy tay TC-09, gọi `GET /api/tickets/{id}` với id rất lớn (lớn hơn 9223372036854775807) làm MongoDB báo lỗi và API trả 500 thay vì 404. Em ghi lại là BUG-006 (mức Minor).
 - Ảnh hưởng: `src/repositories/id_generator.py`, `ticket_repository.py`, `technician_repository.py`, `category_repository.py`, thêm `tests/test_id_range.py`. Commit `18634b2`.
 
 ## TD-17. Thêm healthcheck cho dịch vụ app
