@@ -112,3 +112,4 @@ Dữ liệu mẫu là bộ dữ liệu mô phỏng của case study Mekong Mobil
 - [x] Docker compose có healthcheck cho cả `mongo` và `app`, dựng bằng hai lệnh (`Copy-Item .env.example .env` rồi `docker compose up -d --build`)
 - [x] Deployment Guide (tiếng Anh) và checklist bảo mật 7 mục trong `docs/`
 - [x] Tài liệu API (tiếng Anh) cho 17 endpoint trong `docs/api-docs.md`
+- [x] Triển khai thử trên Render (gói miễn phí): https://cdtn1-lethithuyngan-l2.onrender.com (gói miễn phí tự ngủ khi không có người dùng, lần mở đầu có thể chậm khoảng một phút)
