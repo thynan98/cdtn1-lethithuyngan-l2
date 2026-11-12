@@ -143,6 +143,18 @@ The application itself serves plain HTTP on port 8000 (`uvicorn`). This is fine 
 4. Replace the sample `JWT_SECRET` with your own random key (see "Environment variables").
 5. After the change, open the site with `https://` and check that the browser shows a valid certificate.
 
+## Deploying to a free platform (optional)
+
+I also deployed the system to a free hosting platform (Render) with a free MongoDB Atlas cluster. This was tested on 12 November 2026. The public address is https://cdtn1-lethithuyngan-l2.onrender.com. It runs the same `Dockerfile` as the local setup. No secret is stored in the repository: all secrets are set as environment variables on the platform.
+
+1. **Database.** Create a free MongoDB Atlas cluster. Create a database user with a password made of letters and digits only (special characters must be URL-encoded in the connection string). In Network Access, allow `0.0.0.0/0`, because a free Render instance has no fixed IP address. This is a trade-off: the database accepts connections from any address and is protected only by the user name and password.
+2. **Web service.** In Render, choose New, then Web Service. Connect the GitHub repository, choose the `main` branch, set Language to Docker and the instance type to Free.
+3. **Environment variables.** Add `MONGODB_URI` (the Atlas connection string), `MONGODB_DB` (`warranty_demo`), `JWT_SECRET` (a new random key, see "Environment variables" above) and `PORT` (`8000`).
+4. **Deploy.** Start the deployment. On every start the container runs the migration and the seed (safe to repeat), then starts the server.
+5. **Verify.** Open `/health` on the public address and check that it shows `{"status":"ok","db":"ok"}`. Then log in with `nhanvien01` and check that the Overview screen shows 60 tickets.
+
+Notes: a free instance goes to sleep when nobody uses it, so the first request after a while can take about a minute. The demo accounts and their passwords are public sample data, so this deployment is for demonstration only.
+
 ## Troubleshooting
 
 | Problem | Cause and fix |
