@@ -48,4 +48,5 @@ Ghi chú trung thực: kết quả chỉ đúng với cơ sở dữ liệu lỗ 
 ## Giới hạn còn lại
 
 - Khóa `JWT_SECRET` mẫu trong `.env.example` là công khai, khi triển khai thật phải sinh khóa riêng.
-- Hệ thống phục vụ bằng HTTP, chưa có HTTPS; khi triển khai thật cần đặt sau một reverse proxy có chứng chỉ.
+- Bản chạy Docker trên máy phục vụ bằng HTTP. Bản triển khai thử trên Render được nền tảng phục vụ qua HTTPS (địa chỉ bắt đầu bằng https://); khi triển khai thật bằng cách khác vẫn cần reverse proxy có chứng chỉ.
+- Bản triển khai thử mở Network Access của Atlas cho mọi địa chỉ (`0.0.0.0/0`) vì gói miễn phí của Render không có IP cố định; cơ sở dữ liệu chỉ được bảo vệ bằng tên người dùng và mật khẩu.
