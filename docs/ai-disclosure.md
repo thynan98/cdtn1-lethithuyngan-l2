@@ -1,12 +1,15 @@
 # Bảng khai báo sử dụng công cụ AI
 
-Bốn cột: công cụ · dùng vào việc gì · áp dụng ở tệp hoặc hàm nào · em đã kiểm chứng thế nào.
-Bảng này gộp cả ba bài tập (BT1, BT2, BT3) để thầy xem được toàn bộ quá trình làm bài.
+## 1. Công cụ AI đã dùng
 
-Công cụ em đã dùng:
 - **Claude** (Anthropic): ở cả BT1, BT2 và BT3.
 - **Google Gemini** (phần trả lời AI khi tìm trên Google): ở BT1, để hiểu các khái niệm trong tệp API.
 - **Google Stitch** (BT1) và **Figma AI** (BT2): tạo bản nháp giao diện. Em không dùng mã do Figma sinh ra.
+
+## 2. Bảng khai báo
+
+Bốn cột: công cụ · dùng vào việc gì · áp dụng ở tệp hoặc hàm nào · em đã kiểm chứng thế nào.
+Bảng này gộp cả ba bài tập (BT1, BT2, BT3) để thầy xem được toàn bộ quá trình làm bài.
 
 | Công cụ | Dùng vào việc gì | Áp dụng ở tệp / hàm nào | Em đã kiểm chứng thế nào |
 |---|---|---|---|
@@ -26,8 +29,31 @@ Công cụ em đã dùng:
 | Claude, Figma AI | **BT2.** Figma AI, dựa trên các màn Stitch của BT1, tạo bản nháp giao diện sinh động hơn và các màn còn thiếu (như Đăng nhập). Claude soạn nháp mã HTML, CSS, JavaScript theo wireframe BT1 và thiết kế trên Figma | `frontend/` (năm màn) | Em tự viết phần mô tả trên Figma, chọn và chỉnh bản nháp; em không dùng mã do Figma sinh ra. Em chạy giao diện, thử ba trạng thái (đang tải, rỗng, lỗi) và thử bằng hai tài khoản |
 | Claude | **BT2.** Hướng dẫn cài Docker và WSL, cấu hình MongoDB Atlas, tìm nguyên nhân các lỗi khi chạy và gợi ý cách chia commit | `docs/bug-log.md` (BUG-001 đến BUG-004), `README.md`, lịch sử commit | Em làm theo từng bước, chạy lại sau mỗi lần sửa, ghi các lỗi đã gặp vào Bug Log và xem lịch sử commit trên GitHub |
 | Claude, Google Stitch, Google Gemini | **BT1.** Claude gợi ý cấu trúc, rà soát câu chữ và đối chiếu giữa SRS, use case, API, ERD, wireframe. Stitch tạo bản nháp 3 màn hình wireframe. Gemini giải thích các khái niệm trong tệp API | `docs/srs.md`, `docs/api-contract.md`, `docs/data-model.md`, `docs/usecase.drawio`, `docs/architecture.drawio`, `docs/erd.drawio`, `docs/wireframe.png` | Em chọn phạm vi và viết lại các câu; em tự vẽ use case, kiến trúc và ERD trên draw.io; em chọn 3 màn wireframe và viết bảng ghi chú. Em đối chiếu từng mục với case study, bảng truy vết trong SRS, và tên bảng, tên trường giữa API và ERD |
-| — không dùng — | *(các phần em tự làm)* | **BT1, BT2:** phạm vi, User Story, độ ưu tiên MoSCoW và quy tắc nghiệp vụ trong `docs/srs.md`; sơ đồ use case, kiến trúc, ERD vẽ trên draw.io; các quyết định thay đổi thiết kế trong `docs/thay-doi-thiet-ke.md`; chọn công nghệ (Python FastAPI, MongoDB). **BT3:** chọn và chạy toàn bộ test chạy tay (TC-09, TC-10, TC-11, TC-12), thấy hai test FAIL và quyết định mức độ của BUG-005 và BUG-006; chạy bảy lệnh kiểm bảo mật và quyết định trạng thái từng mục checklist; chụp toàn bộ ảnh trong `docs/screenshots/`; tự tạo tài khoản và dịch vụ trên Render, tự nhập biến môi trường, đổi mật khẩu MongoDB Atlas và chụp ảnh minh chứng deploy; gõ mọi lệnh PowerShell, Git, Docker; commit riêng từng lỗi; đọc, đối chiếu và viết lại các tài liệu trong `docs/` bằng lời của mình | Không áp dụng |
 
 **Cam kết:** Em xác nhận đã đọc, hiểu và chịu trách nhiệm về toàn bộ nội dung nộp.
 
 Họ tên: Lê Thị Thùy Ngân  ·  MSSV: 2374802010328  ·  Ngày: 12/11/2026
+
+## 3. Những phần không dùng AI
+
+- Chọn phạm vi, đề ra User Story, độ ưu tiên MoSCoW và các quy tắc nghiệp vụ trong SRS.
+- Sơ đồ use case: sinh viên tự vẽ trên draw.io, tự nối actor với use case và viết đặc tả.
+- Sơ đồ kiến trúc và ERD: sinh viên vẽ và chỉnh trên draw.io (bố cục, ký hiệu quan hệ, ghi chú), và tự viết các câu giải thích lựa chọn kiến trúc.
+- Chọn công nghệ (Python FastAPI, MongoDB đã được giảng viên đồng ý) và các đánh đổi.
+- Chọn 3 màn wireframe và viết bảng ghi chú.
+- Ở BT2: tự viết phần mô tả (câu lệnh) trên Figma để thêm màu, chỉnh menu và bổ sung các màn còn thiếu; mã giao diện không lấy từ Figma.
+- Đọc lại, chỉnh sửa và đối chiếu các tài liệu với nhau cho khớp.
+- Ở BT2: tự chạy, thử và kiểm tra hệ thống (pytest, migrate, seed, giao diện, Docker), tự tạo lỗi thật để chụp ba trạng thái, tự vẽ lại sơ đồ kiến trúc thực tế, tự quyết định các thay đổi thiết kế và ghi vào `thay-doi-thiet-ke.md`, tự commit và đẩy lên GitHub.
+
+- Ở BT3: chọn và chạy toàn bộ test chạy tay (TC-09, TC-10, TC-11, TC-12), thấy hai test FAIL và tự quyết định mức độ của BUG-005 và BUG-006.
+- Ở BT3: chạy bảy lệnh kiểm bảo mật và tự quyết định trạng thái từng mục trong checklist.
+- Ở BT3: tự chụp toàn bộ ảnh trong `docs/screenshots/`.
+- Ở BT3: tự tạo tài khoản và dịch vụ trên Render, tự nhập biến môi trường, đổi mật khẩu MongoDB Atlas và chụp ảnh minh chứng deploy.
+- Ở BT3: tự gõ mọi lệnh PowerShell, Git, Docker; commit riêng từng lỗi.
+- Ở BT3: đọc, đối chiếu và viết lại các tài liệu trong `docs/` bằng lời của mình.
+
+## 4. Xác nhận
+
+Sinh viên xác nhận đã đọc, hiểu và chịu trách nhiệm về toàn bộ nội dung nộp.
+
+Lê Thị Thùy Ngân, 2374802010328, ngày 12/11/2026
